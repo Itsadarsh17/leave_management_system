@@ -1,0 +1,57 @@
+<%= form_with(model: leave_application, local: true) do |form| %>
+  <% if leave_application.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(leave_application.errors.count, "error") %> prohibited this leave application from being saved:</h2>
+
+      <ul>
+        <% leave_application.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :reason %>
+    <%= form.text_field :reason %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :leave_type %>
+    <%= form.select :leave_type, LeaveApplication.leave_types.keys %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, LeaveApplication.statuses.keys %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.collection_select :user_id, User.all, :id, :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :approver_id %>
+    <%= form.collection_select :approver_id, User.where(id: 1), :id, :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :backup_user_id %>
+    <%= form.collection_select :backup_user_id,User.where.not(id: 1), :id, :email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

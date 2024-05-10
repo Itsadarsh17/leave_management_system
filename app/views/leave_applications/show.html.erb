@@ -1,0 +1,44 @@
+<h1>Leave Application</h1>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @leave_application.reason %>
+</p>
+
+<p>
+  <strong>Start Date:</strong>
+  <%= @leave_application.start_date %>
+</p>
+
+<p>
+  <strong>End Date:</strong>
+  <%= @leave_application.end_date %>
+</p>
+
+<p>
+  <strong>Leave Type:</strong>
+  <%= @leave_application.leave_type %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @leave_application.status %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @leave_application.user.email %>
+</p>
+
+<p>
+  <strong>Approver:</strong>
+  <%= @leave_application.approver&.email || "N/A" %>
+</p>
+
+<p>
+  <strong>Backup User:</strong>
+  <%= @leave_application.backup_user&.email || "N/A" %>
+</p>
+
+<%= link_to 'Edit', edit_leave_application_path(@leave_application) %> |
+<%= link_to 'Back', leave_applications_path %>
