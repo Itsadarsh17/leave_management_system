@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'dashboard#index'
+  root 'leave_applications#index'
   devise_for :users
 
   resources :users
