@@ -1,4 +1,4 @@
-class CreateLeaveApplications < ActiveRecord::Migration[6.0]
+class CreateLeaveApplications < ActiveRecord::Migration[6.1]
   def change
     create_table :leave_applications do |t|
       t.text :reason

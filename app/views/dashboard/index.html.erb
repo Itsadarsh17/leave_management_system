@@ -1,0 +1,9 @@
+<h1>User Dashboard</h1>
+<p>Welcome, <%= current_user.first_name %>!</p>
+
+<h2>Your Leave Applications</h2>
+<ul>
+  <% @leave_applications.each do |application| %>
+    <li><%= application.reason %> - <%= application.status %></li>
+  <% end %>
+</ul>

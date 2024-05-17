@@ -1,44 +1,45 @@
-<h1>Leave Application</h1>
+<div class="card">
+  <div class="card-content">
+    <div class="input-group">
+      <h1>Leave Application</h1>
 
-<p>
-  <strong>Reason:</strong>
-  <%= @leave_application.reason %>
-</p>
+      <p>
+        <strong>Reason:</strong>
+        <%= @leave_application.reason %>
+      </p>
 
-<p>
-  <strong>Start Date:</strong>
-  <%= @leave_application.start_date %>
-</p>
+      <p>
+        <strong>Start Date:</strong>
+        <%= @leave_application.start_date %>
+      </p>
 
-<p>
-  <strong>End Date:</strong>
-  <%= @leave_application.end_date %>
-</p>
+      <p>
+        <strong>End Date:</strong>
+        <%= @leave_application.end_date %>
+      </p>
 
-<p>
-  <strong>Leave Type:</strong>
-  <%= @leave_application.leave_type %>
-</p>
+      <p>
+        <strong>Leave Type:</strong>
+        <%= @leave_application.leave_type %>
+      </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @leave_application.status %>
-</p>
+      <p>
+        <strong>Status:</strong>
+        <%= @leave_application.status %>
+      </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @leave_application.user.email %>
-</p>
+      <p>
+        <strong>Approver:</strong>
+        <%= @leave_application.approver&.first_name|| "N/A" %>
+      </p>
 
-<p>
-  <strong>Approver:</strong>
-  <%= @leave_application.approver&.email || "N/A" %>
-</p>
-
-<p>
-  <strong>Backup User:</strong>
-  <%= @leave_application.backup_user&.email || "N/A" %>
-</p>
-
-<%= link_to 'Edit', edit_leave_application_path(@leave_application) %> |
-<%= link_to 'Back', leave_applications_path %>
+      <p>
+        <strong>Backup User:</strong>
+        <%= @leave_application.backup_user&.first_name|| "N/A" %>
+      </p>
+      <%= link_to 'Edit', edit_leave_application_path(@leave_application),
+       class: "btn btn-primary" %>
+      <%= link_to 'Back', leave_applications_path,class: "btn btn-primary"%>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 class LeaveApplicationsController < ApplicationController
   before_action :set_leave_application, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @leave_applications = LeaveApplication.all
@@ -44,6 +45,6 @@ class LeaveApplicationsController < ApplicationController
     end
 
     def leave_application_params
-      params.require(:leave_application).permit(:reason, :start_date, :end_date, :leave_type, :status, :user_id, :approver_id, :backup_user_id)
+      params.require(:leave_application).permit(:reason, :start_date, :end_date, :leave_type, :approver_id, :backup_user_id)
     end
 end

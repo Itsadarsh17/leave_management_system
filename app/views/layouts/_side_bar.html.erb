@@ -28,10 +28,48 @@
                   Dashboard
                 </span>
               <% end %>
+            </li>
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                <span class="sidebar-mini">
+                  <i class="material-icons">edit</i>
+                </span>
+                <span class="sidebar-normal">
+                  Edit Profile
+                </span>
+              <% end %>
             </li> 
           </ul>
         </div>
       </div>
     </div>
+    <ul class="nav">
+      <li>
+        <%= link_to leave_applications_path do %>
+          <i class="material-icons">stars</i>
+          <p>
+            Leave Requests
+          </p>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to destroy_user_session_path, method: :delete do %>
+          <span class="sidebar-mini">
+            <i class="material-icons">logout</i>
+          </span>
+          <span class="sidebar-normal">
+            Sign Out
+          </span>
+        <% end %>
+      </li>
+      <li>
+       <%= link_to new_leave_application_path do %>
+        <i class="material-icons">add</i>
+        <p>
+          New Leave Application
+       </p>
+       <% end %>
+      </li>
+    </ul>
   </div>
 </div>

@@ -33,17 +33,20 @@
       <td><%= leave_application.end_date %></td>
       <td><%= leave_application.leave_type %></td>
       <td><%= leave_application.status %></td>
-      <td><%= link_to 'Show', leave_application %></td>
-      <td><%= link_to 'Edit', edit_leave_application_path(leave_application) %></td>
-      <td><%= link_to 'Destroy', leave_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
+      <td><%= link_to  leave_application do %>
+      <i class="material-icons">visibility</i>
+      <% end %>
+      <%= link_to  edit_leave_application_path(leave_application) do %>
+      <i class="material-icons">edit</i>
+      <%end%>
+      <%= link_to  leave_application, method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <i class="material-icons">delete</i>
+      <% end %>
+      </td>
+      </tr>
+      <% end %>
 </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Leave Application', new_leave_application_path %>
           </div>
        </div>
       </div>
