@@ -37,14 +37,7 @@
                                        class: "form-control" %>
                     </div>
                   </div>
-                  <div class="mt-20">
-                    <% if devise_mapping.rememberable? %>
-                      <div class="field category text-center">
-                        <%= f.check_box :remember_me %>
-                        <%= f.label :remember_me %>
-                      </div>
-                    <% end %>
-                  </div>
+
                   <div class="actions category text-center">
                     <%= f.submit "Log in", class: "btn btn-rose btn-wd btn-lg" %>
                   </div>

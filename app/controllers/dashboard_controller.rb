@@ -3,5 +3,6 @@ class DashboardController < ApplicationController
 
   def index
     @leave_applications = current_user.leave_applications
+    @user = current_user
   end
 end
