@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_admin, only: [:promote_to_admin, :index]
+  before_action :set_users, only: [:leave_details, :show]
 
   def index
     @users = User.all
@@ -11,17 +12,19 @@ class UsersController < ApplicationController
     end
 
     def show
-      @user = User.find(params[:id])
     end
 
     def leave_details
-      @user = User.find(params[:id])
       @leave_applications = @user.leave_applications
       @monthly_leaves = @leave_applications.group_by { |leave| leave.start_date.beginning_of_month }
     end
 
   private
 
+  def set_users
+    @user = User.find(params[:id])
+  end
+  
   def authorize_admin
     redirect_to(root_path, alert: "Access denied.") unless current_user.admin_users?
   end

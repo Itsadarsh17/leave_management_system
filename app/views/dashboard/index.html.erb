@@ -25,11 +25,11 @@
   </thead>
   <tbody>
     <tr>
-      <td><%= @user.paid_leaves %></td>
-      <td><%= @user.leaves_taken %></td>
-      <td><%= @user.unpaid_leaves %></td>
-      <td><%= @user.pending_leaves %></td>
-      <td><%= @user.approved_upcoming_leaves %></td>
+      <td><%= current_user.paid_leaves %></td>
+      <td><%= current_user.leaves_taken %></td>
+      <td><%= current_user.unpaid_leaves %></td>
+      <td><%= current_user.pending_leaves %></td>
+      <td><%= current_user.approved_upcoming_leaves %></td>
     </tr>
   </tbody>
 </table>

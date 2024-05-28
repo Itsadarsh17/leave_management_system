@@ -17,7 +17,7 @@ class AdminDashboardController < ApplicationController
   end
 
   def leave_request
-    @leave_applications = LeaveApplication.where(status: 0)
+    @leave_applications = LeaveApplication.where(status: 'pending')
   end
 
 
