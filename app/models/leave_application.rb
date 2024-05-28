@@ -6,10 +6,18 @@ class LeaveApplication < ApplicationRecord
   enum leave_type: { sick_leave: 0, casual_leave: 1, unpaid_leave: 2 }
   enum status: { pending: 0, approved: 1, rejected: 2 }
 
-  validates :reason, :start_date, :end_date, :leave_type, :status, presence: true
+  validates :reason, :start_date, :end_date, :leave_type, presence: true
+  validates :user, presence: true  
   validate :end_date_greater_than_start_date
-  validate :start_date_today_or_greater
+  validate :check_leave_limits, on: :create
 
+  def leave_days
+    if start_date && end_date
+      (end_date - start_date).to_i + 1
+    else
+      0
+    end
+  end
 
   private
 
@@ -18,10 +26,16 @@ class LeaveApplication < ApplicationRecord
       errors.add(:end_date, "must be greater than start date")
     end
   end
-
-  def start_date_today_or_greater
-    if start_date.present? && start_date < Date.today
-      errors.add(:start_date, "must be today or greater")
+  
+  def check_leave_limits
+    if leave_type == 'sick_leave' && user.remaining_sick_leaves_taken_this_year <= 0
+      errors.add(:base, "You have exceeded the limit for sick leaves")
+      throw(:abort)
     end
+    if leave_type == 'casual_leave' && user.remaining_casual_leaves_taken_this_year <= 0
+      errors.add(:base, "You have exceeded the limit for casual leaves")
+      throw(:abort)
+    end
+
   end
 end

@@ -3,6 +3,7 @@
   <div class="card-header card-header-icon" data-background-color="rose">
     <i class="material-icons">assignment_add</i>
   </div>
+  <div class="card-header text-center">
   <div class="card-content">
     <h3 class="card-title">Leave Request</h3>
 <%= form_with(model: leave_application, local: true) do |form| %>
@@ -18,29 +19,28 @@
     </div>
   <% end %>
 
-  <div class="form-group label-floating is-empty">
-    <%= form.label :reason, class: "col-md-3 label-on-left" %>
-    <%= form.text_field :reason %>
+  <div class="form-group label-floating">
+    <%= form.label :reason, class:"control-label" %>
+    <%= form.text_field :reason , class:"form-control"%>
+  </div>
+  <div class="form-group label-floating">
+    <%= form.label :start_date, class: "control-label" %>
+    <%= form.date_field :start_date,  class:"form-control datepicker"%>
   </div>
 
-  <div class="form-group label-floating is-empty">
-    <%= form.label :start_date, class: "col-md-3 label-on-left" %>
-    <%= form.date_field :start_date %>
+  <div class="form-group label-floating">
+    <%= form.label :end_date , class: "control-label"%>
+    <%= form.date_field :end_date, class:"form-control" %>
   </div>
-
-  <div class="form-group label-floating is-empty">
-    <%= form.label :end_date , class: "col-md-3 label-on-left"%>
-    <%= form.date_field :end_date %>
-  </div>
-
-  <div class="form-group label-floating is-empty">
-    <%= form.label :leave_type, class: "col-md-3 label-on-left" %>
-    <%= form.select :leave_type, LeaveApplication.leave_types.keys %>
+ 
+  <div class="form-group label-floating">
+    <%= form.label :leave_type, class:"control-label" %>
+    <%= form.select :leave_type, LeaveApplication.leave_types.keys, {selected: form.object.leave_type, include_blank: 'ghgf'},prompt: "Select leave type",class: "form-control" %>
   </div>
 
   <% if current_user.admin? %>
   <div class="field">
-    <%= form.label :status %>
+    <%= form.label :status  %>
     <%= form.select :status, LeaveApplication.statuses.keys.map { |w| [w.humanize, w] } %>
   </div>
 <% else %>
@@ -48,14 +48,14 @@
 <% end %>
 
 
-  <div class="form-group label-floating is-empty">
-  <%= form.label :approver_id, class: "col-md-3 label-on-left" %>
-    <%= form.collection_select :approver_id, User.admin_users, :id, :first_name, { prompt: "Select an Approver" }%>
+  <div class="form-group label-floating">
+  <%= form.label :approver_id, class:"control-label" %>
+    <%= form.collection_select :approver_id, User.admin_users, :id, :first_name, { prompt: "Select an Approver" }, class:"form-control"%>
   </div>
 
-  <div class="form-group label-floating is-empty">
-    <%= form.label :backup_user_id, class: "col-md-3 label-on-left" %>
-    <%= form.collection_select :backup_user_id, User.non_admin_users, :id , :first_name, { prompt: "Select an Backup User" }%>
+  <div class="form-group label-floating">
+    <%= form.label :backup_user_id, class:"control-label" %>
+    <%= form.collection_select :backup_user_id, User.non_admin_users, :id , :first_name, { prompt: "Select an Backup User" }, class:"form-control"%>
   </div>
 
   <div class="form-group row">
@@ -70,6 +70,7 @@
     </div>
   </div>
 <% end %>
+</div>
 </div>
 </div>
 </div>

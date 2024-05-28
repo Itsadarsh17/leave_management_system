@@ -16,9 +16,19 @@ class UsersController < ApplicationController
       redirect_to users_path, alert: "Failed to promote #{user.email} to admin."
     end
 
-    def find_admin
-      @admins = User.admin_users
-    end
+  def find_admin
+    @admins = User.admin_users
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @leave_summary = @user.remaining_monthly_leaves_taken
+  end
+
+  def leave_details
+    @user = User.find(params[:id])
+    @leave_applications = @user.leave_applications
+    @monthly_leaves = @leave_applications.group_by { |leave| leave.start_date.beginning_of_month }
   end
 
   private
