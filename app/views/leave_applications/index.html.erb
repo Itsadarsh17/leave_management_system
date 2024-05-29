@@ -21,6 +21,10 @@
     <th>End Date</th>
     <th>Leave Type</th>
     <th>Status</th>
+     <% if current_user.admin? %>
+    <th>User</th>
+     <% end %>
+     <th>Backup User</th>
     <th colspan="3"></th>
   </tr>
 </thead>
@@ -33,6 +37,10 @@
       <td><%= leave_application.end_date %></td>
       <td><%= leave_application.leave_type %></td>
       <td><%= leave_application.status %></td>
+      <% if current_user.admin? %>
+      <td><%= leave_application.user.email %></td>
+      <% end %>
+      <td><%=leave_application.backup_user.email%></td>
       <td><%= link_to  leave_application do %>
       <i class="material-icons">visibility</i>
       <% end %>
