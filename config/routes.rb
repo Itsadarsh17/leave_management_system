@@ -6,8 +6,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index,:show] do
     member do
-      post 'promote_to_admin'
       get 'leave_details'
+      post :accrue_leaves
     end
   end
 
@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     member do
       put :accept
       put :reject
+    end
+    collection do
+      get :export_csv
     end
   end
 

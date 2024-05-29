@@ -12,7 +12,7 @@
       <div class="info">
         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
           <span>
-            <%= yield(:username) %>
+            <%= current_user.full_name %>
             <b class="caret"></b>
           </span>
         </a>
@@ -29,16 +29,6 @@
                 </span>
               <% end %>
             </li>
-            <li>
-              <%= link_to edit_user_registration_path do %>
-                <span class="sidebar-mini">
-                  <i class="material-icons">edit</i>
-                </span>
-                <span class="sidebar-normal">
-                  Edit Profile
-                </span>
-              <% end %>
-            </li> 
           </ul>
         </div>
       </div>

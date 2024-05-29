@@ -1,3 +1,3 @@
-every 1.month, at: 'start of the month at 00:00 am' do
-  runner "User.add_monthly_leave_balance"
+every '0 0 1 * *' do
+  runner "AddMonthlyLeaveWorker.perform_async"
 end
