@@ -1,6 +1,6 @@
 require 'csv'
 class LeaveApplicationsController < ApplicationController
-  before_action :set_leave_application, only: [:show, :edit, :update, :destroy]
+  before_action :set_leave_application, only: [:show, :edit, :update, :destroy, :accept, :reject]
   before_action :authenticate_user!
 
   def export_csv
@@ -11,11 +11,7 @@ class LeaveApplicationsController < ApplicationController
   end
 
   def index
-    @leave_applications = if current_user.admin?
-                            LeaveApplication.page(params[:page]).per(10)
-                          else
-                            current_user.leave_applications.page(params[:page]).per(10)
-                          end
+    @leave_applications = LeaveApplication.paginate(page: params[:page], per_page: 5)
   end
 
 
@@ -30,7 +26,7 @@ class LeaveApplicationsController < ApplicationController
   end
 
   def create
-    @leave_application = LeaveApplication.new(leave_application_params)
+    @leave_application = current_user.leave_applications.build(leave_application_params)
 
     if @leave_application.save
       LeaveApplicationMailer.notify_approver(@leave_application).deliver_later
@@ -51,8 +47,26 @@ class LeaveApplicationsController < ApplicationController
 
   def destroy
     @leave_application.destroy
-    redirect_to leave_applications_url, notice: 'Leave application was successfully destroyed.'
+    redirect_to leave_applications_url, notice: 'Leave application is successfully destroyed.'
   end
+
+  def accept
+    if @leave_application.update(status: 'approved')
+      redirect_to leave_application_path(@leave_application), notice: 'Leave application is successfully accepted.'
+    else
+      @leave_application.errors.full_messages.join(', ')
+    end
+  end
+
+  def reject
+
+    if @leave_application.update(status: 'rejected')
+      redirect_to leave_application_path(@leave_application), notice: 'Leave application is successfully rejected.'
+    else
+      @leave_application.errors.full_messages.join(', ')
+    end
+  end
+
 
   private
     def set_leave_application

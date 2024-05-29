@@ -2,50 +2,42 @@
   <div class="card-content">
     <div class="input-group">
       <h1>Leave Application</h1>
-
       <p>
         <strong>Reason:</strong>
         <%= @leave_application.reason %>
       </p>
-
       <p>
         <strong>Start Date:</strong>
         <%= @leave_application.start_date %>
       </p>
-
       <p>
         <strong>End Date:</strong>
         <%= @leave_application.end_date %>
       </p>
-
-       <p>
+      <p>
         <strong>Leave Days:</strong>
         <%= @leave_application.leave_days %>
       </p>
-
       <p>
         <strong>Leave Type:</strong>
         <%= @leave_application.leave_type %>
       </p>
-
       <p>
         <strong>Status:</strong>
         <%= @leave_application.status %>
       </p>
-
       <p>
         <strong>Approver:</strong>
         <%= @leave_application.approver&.first_name|| "N/A" %>
       </p>
-
       <p>
         <strong>Backup User:</strong>
         <%= @leave_application.backup_user&.first_name|| "N/A" %>
       </p>
       <%unless current_user.admin?%>
       <%= link_to 'Edit', edit_leave_application_path(@leave_application),
-       class: "btn btn-primary" %>
-       <% end %>
+        class: "btn btn-primary" %>
+      <% end %>
       <%= link_to 'Back', leave_applications_path,class: "btn btn-primary"%>
     </div>
   </div>

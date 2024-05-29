@@ -12,75 +12,73 @@
             </div>
             <div class="material-datatables">
               <% if current_user.admin? %>
-                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>Reason</th>
-                      <th>Start Date</th>
-                      <th>End Date</th>
-                      <th>Leave Type</th>
-                      <th>Leave Days</th>
-                      <th>User</th>
-                      <th>Status</th>
-                      <th>Backup User</th>
-                      <th colspan="3"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% @leave_applications.each do |leave_application| %>
-                      <tr>
-                        <td><%= leave_application.reason %></td>
-                        <td><%= leave_application.start_date %></td>
-                        <td><%= leave_application.end_date %></td>
-                        <td><%= leave_application.leave_type %></td>
-                        <td><%= leave_application.leave_days %></td>
-                        <td><%= leave_application.user.email %></td>
-                        <td><%= leave_application.status %></td>
-                        <td><%= leave_application.backup_user.email %></td>
-                        <td>
-                          <%= link_to leave_application do %>
-                            <i class="material-icons">visibility</i>
-                          <% end %>
-                        </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
+              <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Reason</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Leave Type</th>
+                    <th>Leave Days</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Backup User</th>
+                    <th colspan="3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @leave_applications.each do |leave_application| %>
+                  <tr>
+                    <td><%= leave_application.reason %></td>
+                    <td><%= leave_application.start_date %></td>
+                    <td><%= leave_application.end_date %></td>
+                    <td><%= leave_application.leave_type %></td>
+                    <td><%= leave_application.leave_days %></td>
+                    <td><%= leave_application.user.email %></td>
+                    <td><%= leave_application.status %></td>
+                    <td><%= leave_application.backup_user&.email %></td>
+                    <td>
+                      <%= link_to leave_application do %>
+                      <i class="material-icons">visibility</i>
+                      <% end %>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
               <% else %>
-                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>Reason</th>
-                      <th>Start Date</th>
-                      <th>End Date</th>
-                      <th>Leave Type</th>
-                      <th>Status</th>
-                      <th>Backup User</th>
-                      <th colspan="3"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% @leave_applications.where(user: current_user).each do |leave_application| %>
-                      <tr>
-                        <td><%= leave_application.reason %></td>
-                        <td><%= leave_application.start_date %></td>
-                        <td><%= leave_application.end_date %></td>
-                        <td><%= leave_application.leave_type %></td>
-                        <td><%= leave_application.status %></td>
-                        <td><%= leave_application.backup_user.email %></td>
-                        <td>
-                          <%= link_to leave_application do %>
-                            <i class="material-icons">visibility</i>
-                          <% end %>
-                        </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-                 <div class="pagination">
-                <%= paginate @leave_applications %>
-              </div>
+              <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Reason</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Leave Type</th>
+                    <th>Status</th>
+                    <th>Backup User</th>
+                    <th colspan="3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @leave_applications.where(user: current_user).each do |leave_application| %>
+                  <tr>
+                    <td><%= leave_application.reason %></td>
+                    <td><%= leave_application.start_date %></td>
+                    <td><%= leave_application.end_date %></td>
+                    <td><%= leave_application.leave_type %></td>
+                    <td><%= leave_application.status %></td>
+                    <td><%= leave_application.backup_user&.email %></td>
+                    <td>
+                      <%= link_to leave_application do %>
+                      <i class="material-icons">visibility</i>
+                      <% end %>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
               <% end %>
+              <%= will_paginate @leave_applications%>
             </div>
           </div>
         </div>

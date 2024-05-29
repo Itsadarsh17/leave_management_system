@@ -38,7 +38,7 @@
         <%= link_to leave_applications_path do %>
           <i class="material-icons">stars</i>
           <p>
-            Leave Requests
+            History
           </p>
         <% end %>
       </li>
@@ -52,6 +52,7 @@
           </span>
         <% end %>
       </li>
+      <% unless current_user.admin? %>
       <li>
        <%= link_to new_leave_application_path do %>
         <i class="material-icons">add</i>
@@ -60,6 +61,35 @@
        </p>
        <% end %>
       </li>
+      <li>
+       <%= link_to user_dashboard_path do %>
+        <i class="material-icons">dashboard</i>
+        <p>
+         dashboard
+       </p>
+       <% end %>
+      </li>
+        <% end %>
+       <% if current_user.admin? %>
+      <li>
+       <%= link_to leave_request_path do %>
+        <i class="material-icons">pending</i>
+        <p>
+          Pending Request
+       </p>
+       <% end %>
+      </li>
+          <% end %>
+      <% if current_user.admin? %>
+        <li>
+       <%= link_to admin_dashboard_path do %>
+        <i class="material-icons">list</i>
+        <p>
+        All users
+       </p>
+       <% end %>
+      </li>
+        <% end %>
     </ul>
   </div>
 </div>

@@ -3,7 +3,7 @@ class LeaveApplicationMailer < ApplicationMailer
 
   def notify_approver(leave_application)
     @leave_application = leave_application
-    mail(to: @leave_application.backup_user.email, subject: 'New Leave Application Request')
+    mail(to: @leave_application.approver.email, subject: 'New Leave Application Request')
   end
 
   def notify_user(leave_application)

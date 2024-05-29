@@ -3,19 +3,18 @@ class AdminDashboardController < ApplicationController
   before_action :check_admin
 
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page], per_page: 5)
     @user_data = @users.map do |user|
       {
         id: user.id,
         email: user.email,
-        leaves_taken: user.leaves_taken,
-        paid_leaves: user.paid_leaves,
-        unpaid_leaves: user.unpaid_leaves,
-        pending_leave_requests: user.pending_leaves,
-        approved_upcoming_leaves: user.approved_upcoming_leaves,
+        paid_leaves: user.paid_leaves_count,
+        unpaid_leaves: user.unpaid_leaves_count,
+        pending_leave_requests: user.pending_leaves_count,
+        approved_upcoming_leaves: user.approved_upcoming_leaves_count,
         remaining_sick_leaves_taken_this_year: user.remaining_sick_leaves_taken_this_year,
-        remaining_casual_leaves_taken_this_year: user.remaining_casual_leaves_taken_this_year,
-        remaining_monthly_leaves_taken: user.remaining_monthly_leaves_taken
+        total_balance: user.leave_balance,
+        remaining_casual_leaves_taken_this_year: user.remaining_casual_leaves_taken_this_year
       }
     end
   end
@@ -23,7 +22,6 @@ class AdminDashboardController < ApplicationController
   def leave_request
     @leave_applications = LeaveApplication.where(status: 0)
   end
-
 
   private
 

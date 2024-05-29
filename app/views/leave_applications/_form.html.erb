@@ -1,77 +1,66 @@
 <div class="col-md-9">
-<div class="card">
-  <div class="card-header card-header-icon" data-background-color="rose">
-    <i class="material-icons">assignment_add</i>
-  </div>
-  <div class="card-header text-center">
-  <div class="card-content">
-    <h3 class="card-title">Leave Request</h3>
-<%= form_with(model: leave_application, local: true) do |form| %>
-  <% if leave_application.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(leave_application.errors.count, "error") %> prohibited this leave application from being saved:</h2>
-
-      <ul>
-        <% leave_application.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+  <div class="card">
+    <div class="card-header card-header-icon" data-background-color="rose">
+      <i class="material-icons">assignment_add</i>
+    </div>
+    <div class="card-header text-center">
+      <div class="card-content">
+        <h3 class="card-title">Leave Request</h3>
+        <%= form_with(model: leave_application, local: true) do |form| %>
+        <% if leave_application.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(leave_application.errors.count, "error") %> prohibited this leave application from being saved:</h2>
+          <ul>
+            <% leave_application.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group label-floating">
-    <%= form.label :reason, class:"control-label" %>
-    <%= form.text_field :reason , class:"form-control"%>
-  </div>
-  <div class="form-group label-floating">
-    <%= form.label :start_date, class: "control-label" %>
-    <%= form.date_field :start_date,  class:"form-control datepicker"%>
-  </div>
-
-  <div class="form-group label-floating">
-    <%= form.label :end_date , class: "control-label"%>
-    <%= form.date_field :end_date, class:"form-control" %>
-  </div>
- 
-  <div class="form-group label-floating">
-    <%= form.label :leave_type, class:"control-label" %>
-    <%= form.select :leave_type, LeaveApplication.leave_types.keys, {selected: form.object.leave_type, include_blank: 'ghgf'},prompt: "Select leave type",class: "form-control" %>
-  </div>
-
-  <% if current_user.admin? %>
-  <div class="field">
-    <%= form.label :status  %>
-    <%= form.select :status, LeaveApplication.statuses.keys.map { |w| [w.humanize, w] } %>
-  </div>
-<% else %>
-  <%= form.hidden_field :status, value: LeaveApplication.statuses[:pending] %>
-<% end %>
-
-
-  <div class="form-group label-floating">
-  <%= form.label :approver_id, class:"control-label" %>
-    <%= form.collection_select :approver_id, User.admin_users, :id, :first_name, { prompt: "Select an Approver" }, class:"form-control"%>
-  </div>
-
-  <div class="form-group label-floating">
-    <%= form.label :backup_user_id, class:"control-label" %>
-    <%= form.collection_select :backup_user_id, User.non_admin_users, :id , :first_name, { prompt: "Select an Backup User" }, class:"form-control"%>
-  </div>
-
-  <div class="form-group row">
-    <div class="col-md-6 offset-md-3">
-      <%= form.submit "Submit Leave Request", class: "btn btn-primary" %>
+        <div class="form-group label-floating">
+          <%= form.label :reason, class:"control-label" %>
+          <%= form.text_field :reason , class:"form-control"%>
+        </div>
+        <div class="form-group label-floating">
+          <%= form.label :start_date, class: "control-label" %>
+          <%= form.date_field :start_date,  class:"form-control datepicker"%>
+        </div>
+        <div class="form-group label-floating">
+          <%= form.label :end_date , class: "control-label"%>
+          <%= form.date_field :end_date, class:"form-control" %>
+        </div>
+        <div class="form-group label-floating">
+          <%= form.label :leave_type, class:"control-label" %>
+          <%= form.select :leave_type, LeaveApplication.leave_types.keys, {selected: form.object.leave_type},prompt: "Select leave type",class: "form-control" %>
+        </div>
+        <% if current_user.admin? %>
+        <div class="field">
+          <%= form.label :status  %>
+          <%= form.select :status, LeaveApplication.statuses.keys.map { |w| [w.humanize, w] } %>
+        </div>
+        <% else %>
+        <%= form.hidden_field :status, value: LeaveApplication.statuses[:pending] %>
+        <% end %>
+        <div class="form-group label-floating">
+          <%= form.label :approver_id, class:"control-label" %>
+          <%= form.collection_select :approver_id, User.admin_users, :id, :first_name, { prompt: "Select an Approver" }, class:"form-control"%>
+        </div>
+        <div class="form-group label-floating">
+          <%= form.label :backup_user_id, class:"control-label" %>
+          <%= form.collection_select :backup_user_id, User.non_admin_users, :id , :first_name, { prompt: "Select an Backup User" }, class:"form-control"%>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6 offset-md-3">
+            <%= form.submit "Submit Leave Request", class: "btn btn-primary" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6 offset-md-3">
+            <%= link_to 'Back', leave_applications_path, class: "btn btn-fill btn-rose" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
     </div>
   </div>
-
-  <div class="form-group row">
-    <div class="col-md-6 offset-md-3">
-      <%= link_to 'Back', leave_applications_path, class: "btn btn-fill btn-rose" %>
-    </div>
-  </div>
-<% end %>
-</div>
-</div>
-</div>
-</div>
 </div>
