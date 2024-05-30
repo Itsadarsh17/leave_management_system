@@ -11,12 +11,11 @@ class LeaveApplication < ApplicationRecord
   validate :end_date_greater_than_start_date
   validate :check_leave_limits, on: :create
 
-  def leave_days
-    if start_date && end_date
-      (end_date - start_date).to_i + 1
-    else
-      0
-    end
+  def calculate_leave_days
+    (end_date - start_date).to_i + 1
+  end
+
+  def check_leave_balance(user)
   end
 
   private

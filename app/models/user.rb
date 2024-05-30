@@ -12,19 +12,20 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates :first_name , :last_name , presence: true
 
-  SICK_LEAVE_LIMIT = 7
-  CASUAL_LEAVE_LIMIT = 15
-
   def remaining_sick_leaves_taken_this_year
     sick_leaves_taken_this_year = leave_applications.where(leave_type: 'sick_leave',status: 1 ,start_date: Date.current.beginning_of_year..Date.current.end_of_year).sum(&:leave_days)
-    sick_leave=  SICK_LEAVE_LIMIT - sick_leaves_taken_this_year
+    sick_leave =  total_sick_leaves - sick_leaves_taken_this_year
     remaining = [sick_leave,0].max
   end
 
   def remaining_casual_leaves_taken_this_year
-    casual_leaves_taken_this_year= leave_applications.where(leave_type: 'casual_leave',status: 1, start_date: Date.current.beginning_of_year..Date.current.end_of_year).sum(&:leave_days)
-    casual_leave= CASUAL_LEAVE_LIMIT - casual_leaves_taken_this_year
-    remaining = [casual_leave,0].max
+    casual_leaves_taken_this_year = leave_applications.where(leave_type: 'casual_leave', status: 1, start_date: Date.current.beginning_of_year..Date.current.end_of_year).sum(&:leave_days)
+    casual_leave = total_casual_leaves - casual_leaves_taken_this_year
+    remaining = [casual_leave, 0].max
+  end
+
+  def total_leave_balance
+    remaining_sick_leaves_taken_this_year + remaining_casual_leaves_taken_this_year
   end
 
   def paid_leaves_count
@@ -36,7 +37,7 @@ class User < ApplicationRecord
   end
 
   def pending_leaves_count
-    leave_applications.where(status: 'pending').sum(&:leave_days)
+    leave_applications.where(status: 'pending').count
   end
 
   def approved_upcoming_leaves_count

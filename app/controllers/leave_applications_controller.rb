@@ -29,6 +29,14 @@ class LeaveApplicationsController < ApplicationController
     @leave_application = current_user.leave_applications.build(leave_application_params)
 
     if @leave_application.save
+      case @leave_application.leave_type
+      when :sick_leave
+        current_user.total_sick_leaves -= @leave_application.leave_days
+      when :casual_leave
+        current_user.total_casual_leaves -= @leave_application.leave_days
+      when :unpaid_leave
+        current_user.unpaid_leaves -= @leave_application.leave_days
+      end
       LeaveApplicationMailer.notify_approver(@leave_application).deliver_later
       redirect_to @leave_application, notice: 'Leave application was successfully created.'
     else

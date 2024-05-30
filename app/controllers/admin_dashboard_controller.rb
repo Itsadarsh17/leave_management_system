@@ -13,7 +13,7 @@ class AdminDashboardController < ApplicationController
         pending_leave_requests: user.pending_leaves_count,
         approved_upcoming_leaves: user.approved_upcoming_leaves_count,
         remaining_sick_leaves_taken_this_year: user.remaining_sick_leaves_taken_this_year,
-        total_balance: user.leave_balance,
+        total_balance: user.total_leave_balance,
         remaining_casual_leaves_taken_this_year: user.remaining_casual_leaves_taken_this_year
       }
     end

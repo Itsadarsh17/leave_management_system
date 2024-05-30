@@ -9,7 +9,6 @@
         <%= form_with(model: leave_application, local: true) do |form| %>
         <% if leave_application.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(leave_application.errors.count, "error") %> prohibited this leave application from being saved:</h2>
           <ul>
             <% leave_application.errors.full_messages.each do |message| %>
             <li><%= message %></li>
